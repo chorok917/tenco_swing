@@ -39,6 +39,9 @@ public class GameFrame extends JFrame {
 	// 클래스 안에 클래스 --> 중첩 클래스 -> 외부 클래스, 내부 클래스
 	private class ImagePanel extends JPanel implements Runnable {
 
+		boolean trueFlag = true;
+		boolean falseFlag = false;
+		
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
@@ -56,9 +59,10 @@ public class GameFrame extends JFrame {
 			// false : 오른쪽으로 가는 상황
 			boolean direction = true;
 
-			while (true) {
+			while (falseFlag) {
 				System.out.println("진행중");
 
+				while(trueFlag) {
 				if (direction) {
 					enemyX -= 10;
 				} else {
@@ -82,6 +86,8 @@ public class GameFrame extends JFrame {
 					e.printStackTrace();
 				}
 				repaint();
+				
+				}
 			}
 		} // end of run()
 
@@ -129,17 +135,18 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
-
+				
 			}
 
 			@Override
+			// keyReleased : 키를 눌렀다 땠을 때
 			public void keyReleased(KeyEvent e) {
-
+				
 			}
 
 			@Override
+			// keyPressed : 키를 눌렀을 때
 			public void keyPressed(KeyEvent e) {
-//				System.out.println("여기가 동작합니다.");
 				int code = e.getKeyCode();
 				// 제어문
 				if (code == KeyEvent.VK_LEFT) {
@@ -152,7 +159,8 @@ public class GameFrame extends JFrame {
 					playerY += 10;
 				} else if (code == KeyEvent.VK_SPACE) {
 					// 문제 1.스페이스를 눌렀을 때 적군을 멈출 수 있도록 코드 수정
-					imagePanel.run();
+					imagePanel.falseFlag = true;
+					imagePanel.trueFlag = true;
 				}
 
 				// 문제 2. player가 적군과 만났다면 player 그림을 없애주세요.
