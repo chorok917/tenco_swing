@@ -1,4 +1,4 @@
-package bubble.test.ex04;
+package bubble.test.ex06;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -17,7 +17,6 @@ public class BubbleFrame extends JFrame {
 		initData();
 		setInitLayout();
 		addEventListener();
-
 		// Player 백그라운드 서비스 시작
 		new Thread(new BackgroundPlayerService(player)).start();
 	}
@@ -27,7 +26,7 @@ public class BubbleFrame extends JFrame {
 	 */
 	private void initData() {
 		// todo 이미지 변경
-		backgroundMap = new JLabel(new ImageIcon("img/backgroundMapService.png"));
+		backgroundMap = new JLabel(new ImageIcon("img/backgroundMap.png"));
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Frame --> root Panel
@@ -75,6 +74,10 @@ public class BubbleFrame extends JFrame {
 					player.up();
 					break;
 
+				case KeyEvent.VK_SPACE:
+					add(new Bubble(player)); // 다른 곳에 안 쓸거라면 익명클래스 써도 된다.
+					break;
+
 				default:
 					break;
 				}
@@ -86,11 +89,14 @@ public class BubbleFrame extends JFrame {
 
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
+					// 왼쪽으로 가는 상태 멈춤
 					player.setLeft(false);
 					break;
 				case KeyEvent.VK_RIGHT:
+					// 오른쪽으로 가는 상태 멈춤
 					player.setRight(false);
 					break;
+
 				default:
 					break;
 				}
